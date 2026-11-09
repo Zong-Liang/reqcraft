@@ -1,0 +1,4 @@
+interface:
+  display_name: "ReqCraft"
+  short_description: "Turn requirements into traceable acceptance criteria"
+  default_prompt: "用 $reqcraft 将当前 PRD 整理为可追踪的验收规格。"

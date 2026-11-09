@@ -1,0 +1,12 @@
+{
+  "name": "reqcraft",
+  "owner": {"name": "ReqCraft"},
+  "metadata": {"description": "ReqCraft 的本地 Claude Code 插件安装源。"},
+  "plugins": [
+    {
+      "name": "reqcraft",
+      "source": "./",
+      "description": "需求分析、验收规格与只读验收审计。"
+    }
+  ]
+}
