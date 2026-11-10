@@ -4,22 +4,36 @@
 
 ## 安装
 
-Codex 用户级安装。安装后开启新会话。
+### Codex
 
-```sh
-python3 tools/install_skill.py --host codex
-```
-
-项目级安装可用 `--dest /目标仓库/.agents/skills`。先查看安装范围可加 `--dry-run`。更新时用 `--replace`，不同内容的旧入口会备份到技能父目录之外，路径见安装输出。
-
-Claude Code 可从本地仓库或解压后的插件包安装。把示例路径替换为实际目录。
+在 Codex 对话中发送下面这句话，安装主技能和四个快捷入口。
 
 ```text
-/plugin marketplace add /path/to/reqcraft
+$skill-installer 从 https://github.com/Zong-Liang/reqcraft 的 main 分支安装 skills/reqcraft、skills/reqcraft-analyze、skills/reqcraft-spec、skills/reqcraft-audit 和 skills/reqcraft-help，全部放到 ~/.agents/skills/。
+```
+
+安装后可用 `$reqcraft-spec` 等入口。若技能列表没有显示 ReqCraft，可重启 Codex。 [Codex 技能文档](https://learn.chatgpt.com/docs/build-skills#install-curated-skills-for-local-use)
+
+### Claude Code
+
+Claude Code 2.1.292 或更新版本可在终端用一条命令添加市场并安装插件。 [Claude Code 插件安装文档](https://code.claude.com/docs/en/plugins/install#add-a-marketplace-and-install-in-one-command)
+
+```sh
+claude plugin install reqcraft --marketplace Zong-Liang/reqcraft
+```
+
+较早版本可在 Claude Code 对话中依次运行以下命令，并按界面提示选择安装范围。
+
+```text
+/plugin marketplace add Zong-Liang/reqcraft
 /plugin install reqcraft@reqcraft
 ```
 
-也可运行 `python3 tools/install_skill.py --host claude` 直接安装独立技能。安装器需要 macOS 或 Linux 和 Python 3.9+。通过 ZIP 或插件安装后，宿主使用技能无需 Python，规格格式检查脚本除外。
+### 本地安装和更新
+
+已下载仓库时，可将 `skills/` 下的五个目录一起复制到 Codex 的 `~/.agents/skills/`、项目的 `.agents/skills/`，或 Claude Code 的 `~/.claude/skills/`。只用主入口时，复制 `skills/reqcraft/` 即可。Claude Code 也可用 `/plugin marketplace add /实际路径/reqcraft` 添加本地仓库或解压后的插件包，再安装 `reqcraft@reqcraft`。
+
+也可在仓库根目录运行 `python3 tools/install_skill.py --host codex`，Claude Code 独立安装用 `--host claude`。加 `--dry-run` 只预览，加 `--replace` 会先备份内容不同的旧入口再更新。用 `--dest` 可指定技能父目录。安装器需要 macOS 或 Linux 和 Python 3.9+。
 
 ## 使用
 
