@@ -22,4 +22,4 @@
 - **业务规格**。核心规则与 AC 已明确，且没有阻塞业务结论的 `Q`。
 - **技术映射**。依据真实工程确认相关责任和契约，且不存在阻塞开发的技术待定项。
 
-两项独立标记。按 [模板](../assets/acceptance-spec.template.md) 交付并按 [质量规则](quality-rules.md) 核对。保留旧规格中的 ID、历史决策及已有证据。
+两项独立标记。按 [模板](../assets/acceptance-spec.template.md) 交付并按 [质量规则](quality-rules.md) 核对。修订时保留旧规格中的 ID、历史决策及已有证据。验收条件或结果发生实质变化时，注明受影响的 AC 和具体变化；引用旧结论时按[验收审计](workflow-audit.md)复核其适用范围。
