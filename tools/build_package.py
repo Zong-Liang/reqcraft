@@ -41,7 +41,7 @@ def build(output):
         for relative, data in files.items()
     }
     plugin = {f"skills/{name}": data for name, data in entries.items()}
-    plugin.update({f".claude-plugin/{name}": data for name, data in metadata.items()})
+    plugin.update(metadata)
     plugin["LICENSE"] = license_text
     layouts = {
         f"{NAME}.zip": {

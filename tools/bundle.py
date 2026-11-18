@@ -40,13 +40,23 @@ def load(root=ROOT):
         if not re.search(r"(?m)^description: \S", header[1]):
             raise ValueError(f"{name}/SKILL.md 缺少 description")
 
-    metadata = tree(root / ".claude-plugin")
-    plugin = json.loads(metadata["plugin.json"])
-    marketplace = json.loads(metadata["marketplace.json"])
+    metadata = {
+        f"{directory}/{name}": data
+        for directory in (".claude-plugin", ".codex-plugin", ".agents/plugins")
+        for name, data in tree(root / directory).items()
+    }
+    plugin = json.loads(metadata[".claude-plugin/plugin.json"])
+    marketplace = json.loads(metadata[".claude-plugin/marketplace.json"])
+    codex = json.loads(metadata[".codex-plugin/plugin.json"])
+    catalog = json.loads(metadata[".agents/plugins/marketplace.json"])
     identity = json.loads(skills[NAME]["version.json"])
     version = identity["version"]
     if (
         identity["name"] != NAME or plugin["name"] != NAME or plugin["version"] != version
+        or codex["name"] != NAME or codex["version"] != version or codex["skills"] != "./skills/"
+        or catalog["name"] != NAME or len(catalog["plugins"]) != 1
+        or catalog["plugins"][0]["name"] != NAME
+        or catalog["plugins"][0]["source"] != {"source": "local", "path": "./"}
         or not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version)
         or marketplace["name"] != NAME or len(marketplace["plugins"]) != 1
         or marketplace["plugins"][0]["name"] != NAME or marketplace["plugins"][0]["source"] != "./"

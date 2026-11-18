@@ -1,0 +1,11 @@
+{
+  "name": "reqcraft",
+  "interface": {"displayName": "ReqCraft"},
+  "plugins": [
+    {
+      "name": "reqcraft",
+      "source": {"source": "local", "path": "./"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"}
+    }
+  ]
+}

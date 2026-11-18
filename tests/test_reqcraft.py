@@ -123,6 +123,9 @@ class ReqCraftTest(unittest.TestCase):
                 archive_root = expected[path.name].split("/", 1)[0]
                 self.assertEqual(archive.read(f"{archive_root}/LICENSE"), license_text)
                 self.assertFalse(any("tools/" in name or "tests/" in name for name in names))
+                if path.name == "reqcraft-plugin.zip":
+                    for relative in (".agents/plugins/marketplace.json", ".codex-plugin/plugin.json"):
+                        self.assertEqual(archive.read(f"{archive_root}/{relative}"), (ROOT / relative).read_bytes())
                 unpacked = self.workspace / path.stem
                 archive.extractall(unpacked)
             for markdown in unpacked.rglob("*.md"):
